@@ -1,6 +1,6 @@
 #!/bin/bash
 
 apt-get update
-apt-get upgrade
-apt-get install git
-apt-get install libavahi-compat-libdnssd-dev
+apt-get -y upgrade
+apt-get -y install git
+apt-get -y install libavahi-compat-libdnssd-dev
