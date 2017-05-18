@@ -1,13 +1,13 @@
 #!/bin/bash
 
-npm install -g n
+sudo npm install -g n
 n stable
-apt-get purge -y nodejs npm
+sudo apt-get purge -y nodejs npm
 
-npm install -g homebridge homebridge-netatmo homebridge-irkit \
-               homebridge-ifttt homebridge-lifx-lan \
-               homebridge-sonybraviatv homebridge-cmd
-npm install -g twitter dotenv ps4-waker
+sudo npm install -g homebridge homebridge-netatmo homebridge-irkit \
+                    homebridge-ifttt homebridge-lifx-lan \
+                    homebridge-sonybraviatv homebridge-cmd
+sudo npm install -g twitter dotenv ps4-waker
 
 echo export NODE_PATH=`npm root -g` >> ~/.bashrc
 source ~/.bashrc
@@ -18,6 +18,7 @@ Description = homebridge
 
 [Service]
 ExecStart = /usr/local/bin/homebridge
+User = $USER
 Restart = always
 Type = simple
 
@@ -26,7 +27,8 @@ WantedBy = multi-user.target
 EOS
 `
 
-echo "HOMEBRIDGE_UNIT_STR" > /etc/systemd/system/homebridge.service
+echo "$HOMEBRIDGE_UNIT_STR" > homebridge.service
+sudo mv homebridge.service /etc/systemd/system/
 
-systemctl enable homebridge
-systemctl start homebridge
+sudo systemctl enable homebridge
+sudo systemctl start homebridge
